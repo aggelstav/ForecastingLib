@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class SequenceSplitter:
+class SequenceSpliter:
 
     """A class that tranforms a sequence into a supervised learning problem"""
     def __init__(self, lookback, look_ahead, step=1):
