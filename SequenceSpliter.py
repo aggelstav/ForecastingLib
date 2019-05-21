@@ -15,7 +15,6 @@ class SequenceSpliter:
         if len(sequences.shape) is 1:
             sequences = sequences.reshape(sequences.shape[0], 1)
         for i in range(0, len(sequences), self.step):
-            print(i)
             # find the end of this pattern
             end_ix = i + self.lookback
             out_end_idx = end_ix + self.look_ahead
