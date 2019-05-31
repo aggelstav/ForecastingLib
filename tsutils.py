@@ -12,23 +12,25 @@ class SequenceSpliter:
     def fit(self, X):
         return X
 
-    def split(self, X):
+    def transform(self, x):
         X, y = [], []
-        X = np.array(X)
-        if len(X.shape) is 1:
-            X = X.reshape(X.shape[0], 1)
-        for i in range(0, len(X), self.step):
+        x = np.array(x)
+        if len(x.shape) == 1:
+            x = x.reshape(x.shape[0], 1)
+        for i in range(0, len(x), self.step):
             # find the end of this pattern
             end_ix = i + self.lookback
             out_end_idx = end_ix + self.look_ahead
             # check if we are beyond the dataset
-            if out_end_idx > len(X):
+            if out_end_idx > len(x):
                 break
             # gather input and output parts of the pattern
-            seq_x, seq_y = X[i:end_ix, :], X[end_ix:
-                                                             out_end_idx, :]
+            seq_x, seq_y = x[i:end_ix, :], x[end_ix:out_end_idx, :]
             X.append(seq_x)
             y.append(seq_y)
         return np.array(X), np.array(y)
 
-
+    def fit_transform(self, X):
+        X = self.fit(X)
+        x, y = self.transform(X)
+        return x, y
